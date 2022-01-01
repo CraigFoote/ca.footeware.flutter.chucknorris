@@ -1,7 +1,8 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
+import 'package:http/io_client.dart';
 
 void main() {
   runApp(const ChuckNorrisApp());
@@ -41,9 +42,15 @@ class _HomePageState extends State<_HomePage> {
   Future<void> _getJoke() async {
     Uri url =
         Uri(scheme: 'https', host: 'api.chucknorris.io', path: 'jokes/random');
-    var result = json.decode(await http.read(url));
-    setState(() {
-      _joke = result['value'];
+    final client = HttpClient();
+    client.badCertificateCallback =
+        (X509Certificate cert, String host, int port) => true;
+    final http = IOClient(client);
+    await http.get(url).then((response) async {
+      if (response.statusCode == 200) {
+        var result = json.decode(response.body);
+        setState(() => _joke = result['value']);
+      }
     });
   }
 
@@ -54,9 +61,11 @@ class _HomePageState extends State<_HomePage> {
           title: Row(
         children: [
           Text(widget.title),
-          const Image(
-            image: NetworkImage(
+          Image(
+            image: const NetworkImage(
                 'https://assets.chucknorris.host/img/avatar/chuck-norris.png'),
+            errorBuilder: (context, error, stackTrace) =>
+                SelectableText(error.toString()),
           ),
         ],
       )),
@@ -82,7 +91,9 @@ class _HomePageState extends State<_HomePage> {
       floatingActionButton: FloatingActionButton(
         onPressed: _getJoke,
         tooltip: 'Next',
-        child: const Icon(Icons.announcement_rounded),
+        child: const Icon(
+          Icons.announcement_rounded,
+        ),
       ),
     );
   }
