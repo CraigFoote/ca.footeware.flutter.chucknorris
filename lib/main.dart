@@ -14,7 +14,6 @@ class ChuckNorrisApp extends StatelessWidget {
   const ChuckNorrisApp({Key? key}) : super(key: key);
   final String title = "Chuck Norris'isms";
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -45,6 +44,7 @@ class _HomePageState extends State<_HomePage> {
     Uri url =
         Uri(scheme: 'https', host: 'api.chucknorris.io', path: 'jokes/random');
     final client = HttpClient();
+    // bypass expired certs
     client.badCertificateCallback =
         (X509Certificate cert, String host, int port) => true;
     final http = IOClient(client);
