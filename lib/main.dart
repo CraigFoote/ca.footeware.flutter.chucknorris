@@ -4,6 +4,8 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:http/io_client.dart';
 
+import 'info_page.dart';
+
 void main() {
   runApp(const ChuckNorrisApp());
 }
@@ -58,17 +60,35 @@ class _HomePageState extends State<_HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          title: Row(
-        children: [
-          Text(widget.title),
-          Image(
-            image: const NetworkImage(
-                'https://assets.chucknorris.host/img/avatar/chuck-norris.png'),
-            errorBuilder: (context, error, stackTrace) =>
-                SelectableText(error.toString()),
-          ),
+        title: Row(
+          children: [
+            Text(widget.title),
+            Image(
+              image: const NetworkImage(
+                  'https://assets.chucknorris.host/img/avatar/chuck-norris.png'),
+              errorBuilder: (context, error, stackTrace) =>
+                  SelectableText(error.toString()),
+            ),
+          ],
+        ),
+        actions: [
+          ElevatedButton.icon(
+            onPressed: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (_) {
+                    return const InfoPage(
+                      title: 'Info',
+                    );
+                  },
+                ),
+              );
+            },
+            icon: const Icon(Icons.info),
+            label: const Text(''),
+          )
         ],
-      )),
+      ),
       body: Container(
         decoration: const BoxDecoration(
           color: Colors.blueGrey,
@@ -78,7 +98,7 @@ class _HomePageState extends State<_HomePage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Padding(
-                padding: const EdgeInsets.all(20.0),
+                padding: const EdgeInsets.all(20),
                 child: SelectableText(
                   _joke,
                   style: Theme.of(context).textTheme.headline4,
