@@ -59,6 +59,7 @@ class _HomePageState extends State<_HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.blueGrey,
       appBar: AppBar(
         title: Row(
           children: [
@@ -89,22 +90,12 @@ class _HomePageState extends State<_HomePage> {
           )
         ],
       ),
-      body: Container(
-        decoration: const BoxDecoration(
-          color: Colors.blueGrey,
-        ),
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.all(20),
-                child: SelectableText(
-                  _joke,
-                  style: Theme.of(context).textTheme.headline4,
-                ),
-              ),
-            ],
+      body: Center(
+        child: Padding(
+          padding: const EdgeInsets.all(20),
+          child: SelectableText(
+            _joke,
+            style: Theme.of(context).textTheme.headline4,
           ),
         ),
       ),
