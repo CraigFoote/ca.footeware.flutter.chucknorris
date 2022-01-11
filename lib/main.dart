@@ -38,7 +38,8 @@ class _HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<_HomePage> {
-  String _joke = '';
+  late String _joke;
+  bool _haveJoke = false;
 
   Future<void> _getJoke() async {
     Uri url =
@@ -51,7 +52,10 @@ class _HomePageState extends State<_HomePage> {
     await http.get(url).then((response) async {
       if (response.statusCode == 200) {
         var result = json.decode(response.body);
-        setState(() => _joke = result['value']);
+        setState(() {
+          _joke = result['value'];
+          _haveJoke = true;
+        });
       }
     });
   }
@@ -92,12 +96,13 @@ class _HomePageState extends State<_HomePage> {
       ),
       body: Center(
         child: Padding(
-          padding: const EdgeInsets.all(20),
-          child: SelectableText(
-            _joke,
-            style: Theme.of(context).textTheme.headline4,
-          ),
-        ),
+            padding: const EdgeInsets.all(20),
+            child: _haveJoke
+                ? SelectableText(
+                    _joke,
+                    style: Theme.of(context).textTheme.headline4,
+                  )
+                : Image.asset('images/chuck-norris.jpg')),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: _getJoke,
