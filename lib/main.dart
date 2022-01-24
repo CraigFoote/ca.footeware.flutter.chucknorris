@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:http/io_client.dart';
 
+import 'colors.dart';
 import 'info_page.dart';
 
 void main() {
@@ -19,9 +20,11 @@ class ChuckNorrisApp extends StatelessWidget {
     return MaterialApp(
       title: title,
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primarySwatch: Colors.indigo,
-        backgroundColor: Colors.blueGrey,
+      theme: ThemeData.from(
+        colorScheme: ColorScheme.fromSwatch(
+          primarySwatch: colorDark,
+          accentColor: colorLight,
+        ),
       ),
       home: _HomePage(title: title),
     );
@@ -42,8 +45,11 @@ class _HomePageState extends State<_HomePage> {
   bool _haveJoke = false;
 
   Future<void> _getJoke() async {
-    Uri url =
-        Uri(scheme: 'https', host: 'api.chucknorris.io', path: 'jokes/random');
+    Uri url = Uri(
+      scheme: 'https',
+      host: 'api.chucknorris.io',
+      path: 'jokes/random',
+    );
     final client = HttpClient();
     // bypass expired certs
     client.badCertificateCallback =
@@ -63,7 +69,6 @@ class _HomePageState extends State<_HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.blueGrey,
       appBar: AppBar(
         title: Row(
           children: [
@@ -98,10 +103,11 @@ class _HomePageState extends State<_HomePage> {
         child: Padding(
             padding: const EdgeInsets.all(20),
             child: _haveJoke
-                ? SelectableText(
-                    _joke,
-                    style: Theme.of(context).textTheme.headline4,
-                  )
+                ? SelectableText(_joke,
+                    style: TextStyle(
+                      color: colorLight,
+                      fontSize: 24,
+                    ))
                 : Image.asset('images/chuck-norris.jpg')),
       ),
       floatingActionButton: FloatingActionButton(
