@@ -1,10 +1,10 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:chuck_norris/custom_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:http/io_client.dart';
 
-import 'colors.dart';
 import 'info_page.dart';
 
 void main() {
@@ -20,12 +20,7 @@ class ChuckNorrisApp extends StatelessWidget {
     return MaterialApp(
       title: title,
       debugShowCheckedModeBanner: false,
-      theme: ThemeData.from(
-        colorScheme: ColorScheme.fromSwatch(
-          primarySwatch: colorDark,
-          accentColor: colorLight,
-        ),
-      ),
+      theme: CustomTheme.darkTheme,
       home: _HomePage(title: title),
     );
   }
@@ -70,16 +65,8 @@ class _HomePageState extends State<_HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Row(
-          children: [
-            Text(widget.title),
-            Image(
-              image: const NetworkImage(
-                  'https://assets.chucknorris.host/img/avatar/chuck-norris.png'),
-              errorBuilder: (context, error, stackTrace) =>
-                  SelectableText(error.toString()),
-            ),
-          ],
+        title: Text(
+          widget.title,
         ),
         actions: [
           ElevatedButton.icon(
@@ -103,11 +90,12 @@ class _HomePageState extends State<_HomePage> {
         child: Padding(
             padding: const EdgeInsets.all(20),
             child: _haveJoke
-                ? SelectableText(_joke,
-                    style: TextStyle(
-                      color: colorLight,
+                ? SelectableText(
+                    _joke,
+                    style: const TextStyle(
                       fontSize: 24,
-                    ))
+                    ),
+                  )
                 : Image.asset('images/chuck-norris.jpg')),
       ),
       floatingActionButton: FloatingActionButton(

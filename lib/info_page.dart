@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_linkify/flutter_linkify.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'colors.dart';
 
 class InfoPage extends StatelessWidget {
   const InfoPage({Key? key, required this.title}) : super(key: key);
@@ -10,7 +9,6 @@ class InfoPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: colorDark,
       appBar: AppBar(
         title: Text(
           title,
@@ -34,7 +32,6 @@ class InfoPage extends StatelessWidget {
                 ),
                 style: TextStyle(
                   fontSize: 18,
-                  color: colorLight,
                 ),
               ),
             ),
