@@ -27,6 +27,9 @@ class CustomTheme {
           primary: const Color(0xffd8dee9),
         ),
       ),
+      textSelectionTheme: const TextSelectionThemeData(
+        selectionColor: Color(0xff2e3440),
+      ),
     );
   }
 
@@ -55,6 +58,9 @@ class CustomTheme {
         style: ElevatedButton.styleFrom(
           primary: const Color(0xff4c566a),
         ),
+      ),
+      textSelectionTheme: const TextSelectionThemeData(
+        selectionColor: Color(0xff2e3440),
       ),
     );
   }
