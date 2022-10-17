@@ -69,33 +69,38 @@ class _HomePageState extends State<_HomePage> {
           widget.title,
         ),
         actions: [
-          Row(
-            children: [
-              ElevatedButton.icon(
-                onPressed: _getJoke,
-                icon: const Icon(
-                  Icons.announcement_rounded,
+          OutlinedButton.icon(
+            label: const Text(
+              'Next',
+            ),
+            onPressed: () => setState(
+              () {
+                _getJoke();
+              },
+            ),
+            icon: const Icon(
+              Icons.arrow_forward_rounded,
+            ),
+          ),
+          OutlinedButton.icon(
+            label: const Text(
+              'Info',
+            ),
+            onPressed: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (_) {
+                    return const InfoPage(
+                      title: 'Info',
+                    );
+                  },
                 ),
-                label: const Text(''),
-              ),
-              const Text(" "),
-              ElevatedButton.icon(
-                onPressed: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (_) {
-                        return const InfoPage(
-                          title: 'Info',
-                        );
-                      },
-                    ),
-                  );
-                },
-                icon: const Icon(Icons.info),
-                label: const Text(''),
-              )
-            ],
-          )
+              );
+            },
+            icon: const Icon(
+              Icons.arrow_forward_rounded,
+            ),
+          ),
         ],
       ),
       body: Center(
