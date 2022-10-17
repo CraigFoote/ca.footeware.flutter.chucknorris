@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_linkify/flutter_linkify.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class InfoPage extends StatelessWidget {
@@ -23,16 +22,9 @@ class InfoPage extends StatelessWidget {
           Center(
             child: Padding(
               padding: const EdgeInsets.all(10),
-              child: Linkify(
-                text: 'Another fine mess by http://Footeware.ca',
-                onOpen: _openUrl,
-                linkStyle: const TextStyle(
-                  color: Colors.cyan,
-                  fontSize: 18,
-                ),
-                style: const TextStyle(
-                  fontSize: 18,
-                ),
+              child: ElevatedButton(
+                onPressed: () => _openUrl('http://footeware.ca'),
+                child: const Text('Another fine mess by http://footeware.ca'),
               ),
             ),
           ),
@@ -41,14 +33,12 @@ class InfoPage extends StatelessWidget {
     );
   }
 
-  void _openUrl(link) async {
-    if (await canLaunch(link.url)) {
-      await launch(
-        link.url,
-        forceWebView: false,
-      );
-    } else {
-      throw 'Could not launch $link';
+  void _openUrl(url) async {
+    if (!await launchUrl(
+      Uri.parse(url),
+      mode: LaunchMode.externalApplication,
+    )) {
+      throw 'Could not launch $url';
     }
   }
 }
