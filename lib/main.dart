@@ -57,7 +57,7 @@ class _HomePageState extends State<_HomePage> {
           _joke = result['value'];
           _haveJoke = true;
         });
-      }
+      } else {}
     });
   }
 
@@ -69,20 +69,32 @@ class _HomePageState extends State<_HomePage> {
           widget.title,
         ),
         actions: [
-          ElevatedButton.icon(
-            onPressed: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (_) {
-                    return const InfoPage(
-                      title: 'Info',
-                    );
-                  },
+          Row(
+            children: [
+              ElevatedButton.icon(
+                onPressed: _getJoke,
+                icon: const Icon(
+                  Icons.announcement_rounded,
                 ),
-              );
-            },
-            icon: const Icon(Icons.info),
-            label: const Text(''),
+                label: const Text(''),
+              ),
+              const Text(" "),
+              ElevatedButton.icon(
+                onPressed: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (_) {
+                        return const InfoPage(
+                          title: 'Info',
+                        );
+                      },
+                    ),
+                  );
+                },
+                icon: const Icon(Icons.info),
+                label: const Text(''),
+              )
+            ],
           )
         ],
       ),
@@ -97,13 +109,6 @@ class _HomePageState extends State<_HomePage> {
                     ),
                   )
                 : Image.asset('images/chuck-norris.jpg')),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _getJoke,
-        tooltip: 'Next',
-        child: const Icon(
-          Icons.announcement_rounded,
-        ),
       ),
     );
   }

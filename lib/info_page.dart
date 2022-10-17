@@ -30,7 +30,7 @@ class InfoPage extends StatelessWidget {
                   color: Colors.cyan,
                   fontSize: 18,
                 ),
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 18,
                 ),
               ),
